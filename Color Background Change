@@ -1,0 +1,39 @@
+int a = 500;
+  int b = 255;
+
+void setup(){
+  size(1000,1000);
+
+}
+
+
+void draw(){
+  //bottom left section
+  if(mouseX < a) if(mouseY >a){
+    background(100,b,0);
+    fill(random(0,b),random(0,b),random(0,b),random(0,b));
+    rect(random(0,500), random(500, 1000), random(1,100), random(1,100));
+  }
+  //top right section
+  if(mouseX >a) if(mouseY > a){
+    background(b,b,0);
+    fill(random(0,b),random(0,b),random(0,b),random(0,b));
+    rect(random(500,1000), random(500, 1000), random(1,100), random(1,100));
+  }
+  //top left section
+  if(mouseX < a) if(mouseY < a){
+    background(b,0,0);
+    fill(random(0,b),random(0,b),random(0,b));
+    rect(random(0,a), random(0, a), random(1,100), random(1,100));
+  }
+  //bottom right section
+  if(mouseX > a) if(mouseY < a){
+    background(0,0,b);
+    fill(random(0,b),random(0,b),random(0,b),random(0,b));
+    rect(random(a,1000), random(0, a), random(1,100), random(1,100));
+  }
+  //dividers
+  rect(0,500, 1000, 1);
+  rect(500,0, 1, 1000);
+  
+}
