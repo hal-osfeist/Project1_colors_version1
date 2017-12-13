@@ -1,0 +1,241 @@
+package fracCalc;
+import java.util.*;
+public class FracCalc {
+
+    public static void main(String[] args) {
+      Scanner input = new Scanner (System.in);
+      String a = " ";
+      String frac2 = "a";
+      while(a != "quit") {
+         a = input.nextLine();
+         frac2 = produceAnswer(a);
+         System.out.println(frac2);       
+      }
+
+    }
+    
+    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
+    // This function takes a String 'input' and produces the result
+    //
+    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
+    //      e.g. input ==> "1/2 + 3/4"
+    //        
+    // The function should return the result of the fraction after it has been calculated
+    //      e.g. return ==> "1_1/4"
+    public static String produceAnswer(String b){ 
+      int x=0;
+      //finds the different fraction
+      //x= spaces
+      while(b.charAt(x)!= ' ') {
+         x++;
+      }
+         
+      String firstFraction = b.substring(0,x);
+      //operator
+      String op = b.substring(x+1,x+2);     
+      //Second fraction
+      String secondFraction = b.substring(x+3);
+      //second half of input
+      String secondHalf = b.substring(x+1);
+      //used for underscore
+      int g=0;
+      int p= secondHalf.length();
+      //determines if there is an underscore second fraction
+      //g = where the underscore is or the end of the string
+      while(g<p-1&&secondHalf.charAt(g)!= '_') {
+             g++;
+      }
+      //determines if there is a / in second fraction
+      int slash2=1;
+      while(slash2<p-1&&secondHalf.charAt(slash2)!= '/') {
+             slash2++;
+      }
+
+      String whole="1";
+      String numerator="1";
+      String denominator="1";
+
+      //if the fraction 2 has a whole number underscore do this
+      if(secondHalf.charAt(g)== '_'&&secondHalf.charAt(slash2)== '/') {
+         whole= secondHalf.substring(2,g);
+         numerator= secondHalf.substring(g+1,slash2);
+         denominator= secondHalf.substring(slash2+1);
+      }
+      //If fraction 2 doesnt have underscore but has a slash
+      if(secondHalf.charAt(g)!= '_'&&secondHalf.charAt(slash2)== '/') {
+         whole= "0";
+         numerator= secondHalf.substring(2,slash2);
+         denominator= secondHalf.substring(slash2+1);
+      }
+      //if the input is only a single int
+      if(secondHalf.charAt(g)!= '_'&&secondHalf.charAt(slash2)!= '/') {
+         whole= secondHalf.substring(2);
+         numerator= "0";
+         denominator= "0";
+      }
+
+     //if the first fraction has a whole number underscore do this
+     //If first fraction doesnt have underscore
+     //d is where the / is in first fraction
+     //o ist the length of first fraction
+     int o=firstFraction.length();
+     
+     int d =0;
+     //Scans for /
+     while(d<o-1&&firstFraction.charAt(d)!= '/') {
+        d++;
+     }
+     
+     //under 1 is wherre the underscore is in first fraction
+     int under1=0;
+     while(under1<o-1&&firstFraction.charAt(under1)!= '_') {
+        under1++;
+     }
+     String whole1="1";
+     //numerator for first fraction
+     String numerator1="1";
+     String denominator1="1";
+     //if fraction has both whole number and full fraction
+     if(firstFraction.charAt(under1)== '_'&&firstFraction.charAt(d)== '/') {
+         whole1= firstFraction.substring(0,under1);
+         numerator1= firstFraction.substring(under1+1,d);
+         denominator1= firstFraction.substring(d+1);
+
+     }
+     //if fist fraction has no whole number
+     if(firstFraction.charAt(under1)!= '_'&&firstFraction.charAt(d)== '/') {
+         whole1= "0";
+         numerator1= firstFraction.substring(0,d);
+         denominator1= firstFraction.substring(d+1);
+         
+     }
+     //if it only has a whole number
+     if(firstFraction.charAt(under1)!= '_'&&firstFraction.charAt(d)!= '/') {
+         whole1= firstFraction.substring(0);
+         numerator1= "0";
+         denominator1= "0";
+
+     }
+
+     //first fraction
+     int whole1Int = Integer.parseInt(whole1);
+     int numerator1Int = Integer.parseInt(numerator1);
+     int denominator1Int = Integer.parseInt(denominator1);
+     //second fraction
+     int whole2Int= Integer.parseInt(whole);
+     int numerator2Int= Integer.parseInt(numerator);
+     int denominator2Int= Integer.parseInt(denominator);
+     int finalDenominator=0;
+     int finalNumerator=0;
+     int finalWhole=0;
+     //code that is being returned
+     String answer=" ";
+     if(secondHalf.charAt(0)=='+'){
+        if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+            finalWhole=whole2Int+whole1Int;
+            if(denominator1Int!=denominator2Int){
+               finalDenominator=denominator1Int * denominator2Int;
+               finalNumerator=(denominator2Int*numerator1Int)+(denominator1Int*numerator2Int);
+               //Determines if their is a whole number
+               if(finalWhole==0){
+                  answer=finalNumerator + "/" + finalDenominator;
+               }else{
+                  answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
+               }
+            }else{
+              finalNumerator= numerator1Int + numerator2Int;
+              if(finalWhole==0){
+                  answer = finalNumerator + "/" + denominator1Int;
+              }else{
+                  answer =finalWhole + "_"+finalNumerator + "/" + denominator1Int;
+              }
+            }
+         }else{
+            finalWhole= whole1Int + whole2Int;
+            answer = ""+finalWhole;
+         }
+
+     }
+     //subtraction
+     if(secondHalf.charAt(0)=='-'){
+         if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+            if(denominator1Int!=denominator2Int){
+               finalWhole=whole1Int-whole2Int;
+               finalDenominator=denominator1Int * denominator2Int;
+               finalNumerator=(denominator2Int*numerator1Int)-(denominator1Int*numerator2Int);
+               //Determines if their is a whole number
+               if(finalWhole==0){
+                  //output if their is no whole number
+                 answer= finalNumerator + "/" + finalDenominator;
+               }else{
+                  //output if there is a whole number
+                  answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
+               }
+            }else{
+               //if denominators are the same
+               finalNumerator= numerator1Int - numerator2Int;
+               if(finalWhole==0){
+                  answer= finalNumerator + "/" + denominator1Int;
+               }else{
+                  answer=finalWhole + "_"+finalNumerator + "/" + denominator1Int;
+              }
+            }
+         }else{
+            finalWhole= whole1Int-whole2Int;
+            answer= ""+finalWhole;
+         }
+     }
+     //multiplication
+     if(secondHalf.charAt(0)=='*'){ 
+         if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+            finalNumerator= ((denominator1Int*whole1Int)+numerator1Int)*((denominator2Int*whole2Int)+numerator2Int);
+            finalDenominator=denominator1Int*denominator2Int;
+            answer= finalNumerator + "/" + finalDenominator;
+         }else{
+            finalWhole=whole1Int*whole2Int;
+            answer= ""+finalWhole;
+         }
+     }
+     //division
+     if(secondHalf.charAt(0)=='/'){
+         if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+            numerator1Int= (denominator1Int*whole1Int)+numerator1Int;
+            numerator2Int= (denominator2Int*whole2Int)+numerator2Int;
+            finalNumerator= numerator1Int*denominator2Int;
+            finalDenominator= denominator1Int*numerator2Int;
+            answer= finalNumerator+"/"+finalDenominator;
+         }else{
+            finalWhole=whole1Int/whole2Int;
+            answer=""+finalWhole;
+         }
+         
+     }
+     
+         
+      
+     //String m="whole:"+ whole + " numerator:" + numerator + " denominator:" + denominator;
+     
+     return answer;
+              
+     
+
+      
+           
+
+      
+   }
+}
+      
+
+    
+      
+ //int whole1Int = Integer.parseInt(whole1);
+      
+    // TODO: Implement this function to produce the solution to the input
+        
+ 
+
+
+    // TODO: Fill in the space below with any helper methods that you think you will need
+    
+
