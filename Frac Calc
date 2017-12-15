@@ -141,9 +141,9 @@ public class FracCalc {
                finalNumerator=(denominator2Int*numerator1Int)+(denominator1Int*numerator2Int);
                //Determines if their is a whole number
                if(finalWhole==0){
-                  answer=finalNumerator + "/" + finalDenominator;
+                  //answer=finalNumerator + "/" + finalDenominator;
                }else{
-                  answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
+                  //answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
                }
             }else{
               //defined so it doesnt equal 0
@@ -151,31 +151,32 @@ public class FracCalc {
 
               finalNumerator= numerator1Int + numerator2Int;
               if(finalWhole==0){
-                  answer = finalNumerator + "/" + denominator1Int;
+                  //answer = finalNumerator + "/" + denominator1Int;
               }else{
-                  answer =finalWhole + "_"+finalNumerator + "/" + denominator1Int;
+                  //answer =finalWhole + "_"+finalNumerator + "/" + denominator1Int;
               }
             }
          }else{
             finalWhole= whole1Int + whole2Int;
-            answer = ""+finalWhole;
+            //answer = ""+finalWhole;
          }
 
      }
      //subtraction
      if(secondHalf.charAt(0)=='-'){
          if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+            finalWhole=whole1Int-whole2Int;
             if(denominator1Int!=denominator2Int){
-               finalWhole=whole1Int-whole2Int;
+               
                finalDenominator=denominator1Int * denominator2Int;
                finalNumerator=(denominator2Int*numerator1Int)-(denominator1Int*numerator2Int);
                //Determines if their is a whole number
                if(finalWhole==0){
                   //output if their is no whole number
-                 answer= finalNumerator + "/" + finalDenominator;
+                 //answer= finalNumerator + "/" + finalDenominator;
                }else{
-                  //output if there is a whole number
-                  answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
+                //output if there is a whole number
+                  //answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
                }
             }else{
                //defined so it doesnt equal 0
@@ -183,28 +184,36 @@ public class FracCalc {
                //if denominators are the same
                finalNumerator= numerator1Int - numerator2Int;
                if(finalWhole==0){
-                  answer= finalNumerator + "/" + denominator1Int;
+                 //answer= finalNumerator + "/" + denominator1Int;
                }else{
-                  answer=finalWhole + "_"+finalNumerator + "/" + denominator1Int;
+                  
+                  //answer=finalWhole + "_"+finalNumerator + "/" + denominator1Int;
                }
             
             }
          }else{
             finalWhole= whole1Int-whole2Int;
-            answer= ""+finalWhole;
+            //answer= ""+finalWhole;
          }
      }
      //multiplication
      if(secondHalf.charAt(0)=='*'){ 
-         if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
-            finalNumerator= ((denominator1Int*whole1Int)+numerator1Int)*((denominator2Int*whole2Int)+numerator2Int);
-            finalDenominator=denominator1Int*denominator2Int;
-            answer= finalNumerator + "/" + finalDenominator;
+         if(denominator1Int!=0||denominator2Int!=0||numerator1Int!=0||numerator2Int!=0){
+            if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
+               finalNumerator= ((denominator1Int*whole1Int)+numerator1Int)*((denominator2Int*whole2Int)+numerator2Int);
+               finalDenominator=denominator1Int*denominator2Int;
+               //answer= finalNumerator + "/" + finalDenominator;
+            }else{
+               finalWhole=whole1Int*whole2Int;
+               //answer= ""+finalWhole;
+            }
          }else{
-            finalWhole=whole1Int*whole2Int;
-            answer= ""+finalWhole;
+            if(whole1Int==0&&whole2Int==0){
+               //answer= ""+finalWhole;
+            }
          }
-     }
+
+      }
      //division
      if(secondHalf.charAt(0)=='/'){
          if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
@@ -212,10 +221,10 @@ public class FracCalc {
             numerator2Int= (denominator2Int*whole2Int)+numerator2Int;
             finalNumerator= numerator1Int*denominator2Int;
             finalDenominator= denominator1Int*numerator2Int;
-            answer= finalNumerator+"/"+finalDenominator;
+            //answer= finalNumerator+"/"+finalDenominator;
          }else{
             finalWhole=whole1Int/whole2Int;
-            answer=""+finalWhole;
+            //answer=""+finalWhole;
          }
          
      }
@@ -229,14 +238,21 @@ public class FracCalc {
          simpleFraction=0;
      }
      if(finalNumerator>=finalDenominator) {
-         if(finalNumerator%finalDenominator !=0){
-            simpleWhole= finalNumerator/finalDenominator;
-            finalWhole= finalWhole+simpleWhole;
-            finalNumerator= finalNumerator-(finalDenominator*simpleWhole);
-         }else{
-            simpleFraction=finalWhole;
+         if(finalNumerator!=0||finalDenominator!=0){
+            if(finalNumerator%finalDenominator !=0){
+               simpleWhole= finalNumerator/finalDenominator;
+               finalWhole= finalWhole+simpleWhole;
+               finalNumerator= finalNumerator-(finalDenominator*simpleWhole);
+            }else{
+               //answer=""+finalWhole;
+            }
          }
          
+     }
+     //common divisor
+     int common=finalNumerator;
+     while(finalDenominator%common!=0){
+      common--;
      }
             
       
@@ -264,4 +280,3 @@ public class FracCalc {
 
 
     // TODO: Fill in the space below with any helper methods that you think you will need
-    
