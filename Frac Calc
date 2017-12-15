@@ -6,6 +6,7 @@ public class FracCalc {
       Scanner input = new Scanner (System.in);
       String a = " ";
       String frac2 = "a";
+      System.out.println("Input Fraction: ");
       while(a != "quit") {
          a = input.nextLine();
          frac2 = produceAnswer(a);
@@ -125,11 +126,13 @@ public class FracCalc {
      int whole2Int= Integer.parseInt(whole);
      int numerator2Int= Integer.parseInt(numerator);
      int denominator2Int= Integer.parseInt(denominator);
+     //final is the values of the fraction after it has been added,subtracted ect. note:these values are not simplified
      int finalDenominator=0;
      int finalNumerator=0;
      int finalWhole=0;
      //code that is being returned
      String answer=" ";
+     //addition
      if(secondHalf.charAt(0)=='+'){
         if(denominator1Int>0&& numerator1Int>0&& denominator2Int>0&& numerator2Int>0){
             finalWhole=whole2Int+whole1Int;
@@ -143,6 +146,9 @@ public class FracCalc {
                   answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
                }
             }else{
+              //defined so it doesnt equal 0
+              finalDenominator=denominator1Int;
+
               finalNumerator= numerator1Int + numerator2Int;
               if(finalWhole==0){
                   answer = finalNumerator + "/" + denominator1Int;
@@ -172,13 +178,16 @@ public class FracCalc {
                   answer= finalWhole + "_"+finalNumerator + "/" + finalDenominator;
                }
             }else{
+               //defined so it doesnt equal 0
+               finalDenominator=denominator1Int;
                //if denominators are the same
                finalNumerator= numerator1Int - numerator2Int;
                if(finalWhole==0){
                   answer= finalNumerator + "/" + denominator1Int;
                }else{
                   answer=finalWhole + "_"+finalNumerator + "/" + denominator1Int;
-              }
+               }
+            
             }
          }else{
             finalWhole= whole1Int-whole2Int;
@@ -210,10 +219,28 @@ public class FracCalc {
          }
          
      }
-     
+     //Simple whole is used to make the fraction not be improper
+     int simpleWhole=0; 
+     //Simple fraction is the the proper version of the result of the equation, it is not simplifies
+     int simpleFraction=0;
+     //finalName values are not becoming simplified
+     //simplification for improper fractions
+     if(finalNumerator==0){
+         simpleFraction=0;
+     }
+     if(finalNumerator>=finalDenominator) {
+         if(finalNumerator%finalDenominator !=0){
+            simpleWhole= finalNumerator/finalDenominator;
+            finalWhole= finalWhole+simpleWhole;
+            finalNumerator= finalNumerator-(finalDenominator*simpleWhole);
+         }else{
+            simpleFraction=finalWhole;
+         }
          
+     }
+            
       
-     //String m="whole:"+ whole + " numerator:" + numerator + " denominator:" + denominator;
+     String m="whole:"+ whole + " numerator:" + numerator + " denominator:" + denominator;
      
      return answer;
               
@@ -238,4 +265,3 @@ public class FracCalc {
 
     // TODO: Fill in the space below with any helper methods that you think you will need
     
-
