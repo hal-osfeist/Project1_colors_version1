@@ -103,6 +103,36 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void selectionShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+		for(int i=values.length-1; i>=0; i--){
+			int a=(int) (Math.random()*i);
+			int temp=values[a];
+			values[a]=values[i];
+			values[i]=temp;
+		}
+	}
+	//question 1
+	public static String flip(){
+		int b=(int) (Math.random()*3);
+		if(b==2||b==3){
+			return "heads";
+		
+		}else{
+			return "tails";
+		}
+	}
+	public static boolean arePermutations(int[] a, int[] b){
+	    for(int i = 0; i < a.length; i++){
+	        boolean test1 = false;
+	        for(int k = 0; k < b.length; k++){
+	            if(a[i] == b[k]){
+	                test1 = true;
+	            }
+	        }
+	        if(test1){
+	            return true;
+	        }
+
+	    }
+	    return false;
 	}
 }
